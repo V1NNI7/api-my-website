@@ -3,9 +3,8 @@ const router = express.Router();
 const { Users } = require('../models');
 const { Op } = require('sequelize');
 const { sha256 } = require('js-sha256');
-const { check, validationResult } = require('express-validator/check')
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const response = await Users.create({
         name: req.body.name,
         email: req.body.email,
