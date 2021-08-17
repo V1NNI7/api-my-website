@@ -4,23 +4,13 @@ const { Users } = require('../models');
 const { Op } = require('sequelize');
 const { sha256 } = require('js-sha256');
 
-/* router.post('/', async (req, res) => {
-    const response = await Users.create({
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: sha256(req.body.password + '$@#324'),
-    });
-    res.status(200).json(response)
-}); */
-
 router.post('/', async (req, res) => {
-    const result = await Users.findOne({
+    const resultEmail = await Users.findOne({
         where: {
             email: req.body.email
         }
     });
-    if(result === null) {
+    if(resultEmail === null) {
         const response = await Users.create({
            name: req.body.name,
            email: req.body.email,
@@ -29,7 +19,7 @@ router.post('/', async (req, res) => {
         });
         res.status(200).json(response);
     } else {
-        res.status(200).json('Email já existente.')
+        res.status(400).json('Email já existente.')
     }
 });
 
