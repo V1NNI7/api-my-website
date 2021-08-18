@@ -10,18 +10,27 @@ router.post('/', async (req, res) => {
             email: req.body.email
         }
     });
-    if(resultEmail === null) {
+    if (resultEmail === null) {
         const response = await Users.create({
-           name: req.body.name,
-           email: req.body.email,
-           username: req.body.username,
-           password: sha256(req.body.password + '$@#324'),
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username,
+            password: sha256(req.body.password + '$@#324'),
         });
         res.status(200).json(response);
     } else {
         res.status(400).json('Email já existente.')
     }
 });
+
+router.get('/:id', async (req, res) => {
+    const response = await Users.findAll({
+        where: {
+            id: req.params.id
+        }
+    });
+    res.status(200).json(response);
+})
 
 router.get('/', async (req, res) => {
     const response = await Users.findAll({
@@ -30,13 +39,110 @@ router.get('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    await Users.update(req.body, {
+    const user = {
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: sha256(req.body.password + '$@#324'),
+    }
+    const { id } = req.params;
+
+    const consultUser = await Users.findOne({
         where: {
-            id: req.params.id
+            id
         }
-    })
-    res.status(200).json('Usuário atualizado com sucesso!')
-})
+    });
+
+    console.log(consultUser.email)
+
+    if (user.email === consultUser.email) {
+        const emailOutdated = {
+            name: req.body.name,
+            email: consultUser.email,
+            username: req.body.username,
+            password: sha256(req.body.password + '$@#324'),
+        }
+
+        const emailOutdatedCheck = await Users.update(emailOutdated, {
+            where: {
+                id
+            }
+        });
+
+        res.status(200).json('Email manteve o mesmo!')
+    } else {
+        const checkEmailExist = await Users.findOne({
+            where: {
+                email: user.email
+            }
+        });
+        if (!checkEmailExist) {
+            const response = {
+                name: req.body.name,
+                email: user.email,
+                username: req.body.username,
+                password: sha256(req.body.password + '$@#324'),
+            };
+            
+            const responseEmailCheckNotExist = await Users.update(response, {
+                where: {
+                    id
+                }
+            });
+
+            res.status(200).json('Email atualizado com sucesso!');
+        } else {
+            res.status(400).json('O email o qual deseja atualizar já está em uso!')
+        }
+    }
+    /* res.status(200).json({ id, ...user }); */
+});
+
+/* router.put('/:id', async (req, res) => {
+    const user = {
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: sha256(req.body.password + '$@#324'),
+    }
+    const { id } = req.params;
+
+    const consultUser = await Users.findOne({
+        where: {
+            id
+        }
+    });
+
+    console.log(consultUser.email)
+
+    if (user.email === consultUser.email) {
+        const noChangeEmail = {
+            name: req.body.name,
+            email: consultUser.email,
+            username: req.body.username,
+            password: sha256(req.body.password + '$@#324'),
+        }
+        const userNoChangeEmail = await Users.update(noChangeEmail, {
+            where: {
+                id
+            }
+        });
+        res.status(200).json(userNoChangeEmail)
+    } else {
+        const changeEmail = {
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username,
+            password: sha256(req.body.password + '$@#324'),
+        }
+        const userChangeEmail = await Users.update(changeEmail, {
+            where: {
+                id
+            }
+        });
+        res.status(200).json(userChangeEmail)
+    }
+}); */
 
 router.delete('/:id', async (req, res) => {
     await Users.destroy({
