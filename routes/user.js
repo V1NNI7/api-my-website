@@ -95,7 +95,6 @@ router.put('/:id', async (req, res) => {
             res.status(400).json('O email o qual deseja atualizar já está em uso!')
         }
     }
-    /* res.status(200).json({ id, ...user }); */
 });
 
 /* router.put('/:id', async (req, res) => {
