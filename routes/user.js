@@ -97,52 +97,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-/* router.put('/:id', async (req, res) => {
-    const user = {
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: sha256(req.body.password + '$@#324'),
-    }
-    const { id } = req.params;
-
-    const consultUser = await Users.findOne({
-        where: {
-            id
-        }
-    });
-
-    console.log(consultUser.email)
-
-    if (user.email === consultUser.email) {
-        const noChangeEmail = {
-            name: req.body.name,
-            email: consultUser.email,
-            username: req.body.username,
-            password: sha256(req.body.password + '$@#324'),
-        }
-        const userNoChangeEmail = await Users.update(noChangeEmail, {
-            where: {
-                id
-            }
-        });
-        res.status(200).json(userNoChangeEmail)
-    } else {
-        const changeEmail = {
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: sha256(req.body.password + '$@#324'),
-        }
-        const userChangeEmail = await Users.update(changeEmail, {
-            where: {
-                id
-            }
-        });
-        res.status(200).json(userChangeEmail)
-    }
-}); */
-
 router.delete('/:id', async (req, res) => {
     await Users.destroy({
         where: {
