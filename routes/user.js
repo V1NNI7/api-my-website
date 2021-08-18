@@ -83,7 +83,7 @@ router.put('/:id', async (req, res) => {
                 username: req.body.username,
                 password: sha256(req.body.password + '$@#324'),
             };
-            
+
             const responseEmailCheckNotExist = await Users.update(response, {
                 where: {
                     id
