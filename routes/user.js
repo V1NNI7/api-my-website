@@ -3,7 +3,6 @@ const router = express.Router();
 const { Users } = require('../models');
 const { Op } = require('sequelize');
 const { sha256 } = require('js-sha256');
-const verifyJWT = require('../middlewares/auth');
 
 // Retirado a Sha256 das senhas! 
 
@@ -36,7 +35,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(response);
 })
 
-router.get('/', verifyJWT, async (req, res) => {
+router.get('/', async (req, res) => {
     const response = await Users.findAll({
     });
     res.status(200).json(response)
