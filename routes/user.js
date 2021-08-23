@@ -3,6 +3,9 @@ const router = express.Router();
 const { Users } = require('../models');
 const { Op } = require('sequelize');
 const { sha256 } = require('js-sha256');
+const verifyJWT = require('../middlewares/auth');
+
+// Retirado a Sha256 das senhas! 
 
 router.post('/', async (req, res) => {
     const resultEmail = await Users.findOne({
@@ -15,7 +18,8 @@ router.post('/', async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             username: req.body.username,
-            password: sha256(req.body.password + '$@#324'),
+            password: req.body.password,
+            /* password: sha256(req.body.password + '$@#324'), */
         });
         res.status(200).json(response);
     } else {
@@ -32,7 +36,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(response);
 })
 
-router.get('/', async (req, res) => {
+router.get('/', verifyJWT, async (req, res) => {
     const response = await Users.findAll({
     });
     res.status(200).json(response)
@@ -43,7 +47,8 @@ router.put('/:id', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: sha256(req.body.password + '$@#324'),
+        password: req.body.password,
+        /* password: sha256(req.body.password + '$@#324'), */
     }
     const { id } = req.params;
 
@@ -60,7 +65,8 @@ router.put('/:id', async (req, res) => {
             name: req.body.name,
             email: consultUser.email,
             username: req.body.username,
-            password: sha256(req.body.password + '$@#324'),
+            password: req.body.password,
+            /* password: sha256(req.body.password + '$@#324'), */
         }
 
         const emailOutdatedCheck = await Users.update(emailOutdated, {
@@ -81,7 +87,8 @@ router.put('/:id', async (req, res) => {
                 name: req.body.name,
                 email: user.email,
                 username: req.body.username,
-                password: sha256(req.body.password + '$@#324'),
+                password: req.body.password,
+                /* password: sha256(req.body.password + '$@#324'), */
             };
 
             const responseEmailCheckNotExist = await Users.update(response, {

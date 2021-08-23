@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken');
 
 const verifyJWT = (req, res, next) => {
     const token = req.headers['x-access-token'];
+
+    // Verifica se o x-access-token está vazio
+
     if (!token) {
         return res.status(403).json({
             auth: false,
@@ -9,7 +12,9 @@ const verifyJWT = (req, res, next) => {
         });
     }
 
-    jwt.verify(token, 'test', (err, decoded) => {
+    // Verifica se o token inserido é válido
+
+    jwt.verify(token, 'isToken', (err, decoded) => {
         if (err) {
             return res.status(300).json({
                 auth: false,
