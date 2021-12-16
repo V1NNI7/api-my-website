@@ -17,6 +17,8 @@ $ npm install --save sqlite3
 $ npx sequelize init 
 ```
 
+# -D Para salvar como desenvolvimento
+
 Diretórios:
 
 * **config** - Configuração do banco de dados 
@@ -28,6 +30,8 @@ Diretórios:
 Comandos Sequelize-cli:
 
 ```
+[Modelo para criação]
+
 $ npx sequelize-cli model:generate --name=Postagens --attributes post:string,likes:integer
 
 $ npx sequelize-cli db:migrate

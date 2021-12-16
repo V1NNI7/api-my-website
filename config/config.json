@@ -4,10 +4,10 @@
     "storage": "./db/database.sqlite3"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "v1nni7",
+    "password": "v1nni7_db2021",
+    "database": "db_v1nni7",
+    "host": "db4free.net",
     "dialect": "mysql"
   },
   "production": {

@@ -1,24 +1,25 @@
 {
-  "name": "api-my-website",
-  "version": "1.0.4",
-  "description": "",
+  "name": "v1nni7-api",
+  "version": "1.0.0",
+  "description": "Essa API utiliza NodeJS + Sequelize + Sqlite para criar o CRUD (Create, Read, Update e Delete) de uma aplicação para listagem de tarefas.",
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vinicius",
+  "author": "Vinicius S Cezar",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "js-sha256": "^0.9.0",
     "jsonwebtoken": "^8.5.1",
-    "sequelize": "^6.5.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.12.0-beta.3",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.3.0"
   }
 }
