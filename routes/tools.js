@@ -19,7 +19,17 @@ router.post('/', async (req, res) => {
     }
 });
 
-// v1nni7
-// v1nni7_db2021
+router.put('/:id', async (req,res) => {
+    try {
+        const response = await Tools.update(req.body, {
+            where: {
+                id: req.params.id,
+            }
+        }) ;
+        res.status(200).send(response);
+    } catch (error) {
+        res.status(400).send({error: 'Houve um erro ao tentar atualizar a Stack'});
+    }
+});
 
 module.exports = router;    
