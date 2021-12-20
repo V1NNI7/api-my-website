@@ -25,7 +25,7 @@ router.put('/:id', async (req,res) => {
             where: {
                 id: req.params.id,
             }
-        }) ;
+        });
         res.status(200).send(response);
     } catch (error) {
         res.status(400).send({error: 'Houve um erro ao tentar atualizar a Stack'});
