@@ -26,10 +26,25 @@ router.put('/:id', async (req,res) => {
                 id: req.params.id,
             }
         });
-        res.status(200).send(response);
+        return res.status(200).send(response);
     } catch (error) {
-        res.status(400).send('Erro ao atualizar o projeto');
+        return res.status(400).send('Erro ao atualizar o projeto');
     }
+});
+
+router.delete('/:id', async (req,res) => {
+    try {
+        const response = await Projects.destroy({
+            where: {
+                id: req.params.id,
+            }
+        });
+        return res.status(200).send('Registro deletado com sucesso!');
+    } catch (error) {
+        return res.status(400).send('Erro ao tentar deletar esse registro');
+    }
+    
+    
 });
 
 module.exports = router;
