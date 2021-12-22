@@ -41,10 +41,8 @@ router.delete('/:id', async (req,res) => {
         });
         return res.status(200).send('Registro deletado com sucesso!');
     } catch (error) {
-        return res.status(400).send('Erro ao tentar deletar esse registro');
+        return res.status(400).send('Erro ao tentar deletar esse registro!');
     }
-    
-    
 });
 
 module.exports = router;
